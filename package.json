@@ -2,9 +2,17 @@
     "name": "spt-dev",
     "displayName": "SPT Dev",
     "description": "This extension aids in the development of the Single Player Tarkov project by providing easy access to item names and descriptions directly within Visual Studio Code.",
-    "icon": "spt-dev.png",
+    "icon": "images/icon.png",
     "author": "Tyler Brownell <brownelltyler@gmail.com>",
+    "publisher": "refringe",
     "version": "1.0.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/refringe/spt-dev-vscode-extension.git"
+    },
+    "sponsor": {
+        "url": "https://github.com/sponsors/refringe"
+    },
     "engines": {
         "vscode": "^1.40.0"
     },

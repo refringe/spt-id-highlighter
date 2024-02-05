@@ -7,6 +7,8 @@ This extension aids in the development of the Single Player Tarkov project by pr
 - **Hover Information**: Hover over an item ID to see the full item name or short name, depending on your settings.
 - **Multilingual Support**: Choose from a variety of languages for item names and descriptions.
 
+![Hover Feature Example](https://github.com/refringe/spt-dev-vscode-extension/blob/main/images/example.gif?raw=true)
+
 ## Requirements
 
 This extension requires Visual Studio Code version 1.40.0 or later.
