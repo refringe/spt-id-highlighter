@@ -17,8 +17,8 @@ This extension requires Visual Studio Code version 1.40.0 or later.
 
 This extension contributes the following settings:
 
-- `spt-dev.language`: specify the language for item names and descriptions.
-- `spt-dev.nameType`: choose between displaying the full item name or the short name on hover.
+- `spt-id-highlighter.language`: specify the language for item names and descriptions.
+- `spt-id-highlighter.nameType`: choose between displaying the full item name or the short name on hover.
 
 ## Known Issues
 
