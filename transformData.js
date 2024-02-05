@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
+console.log(`Beginning operation to optimize language data.`);
+
 const sourceDir = path.join(__dirname, './assets/database/locales');
 const outputDir = path.join(__dirname, './src/database');
 
@@ -37,6 +39,8 @@ files.forEach(file => {
         });
 
         fs.writeFileSync(outputPath, JSON.stringify(transformedData, null, 2), 'utf-8');
-        console.log(`Transformed data written to ${outputPath}`);
+        console.log(`Optimized ${outputPath}`);
     }
 });
+
+console.log(`Language data has been optimized.`);
