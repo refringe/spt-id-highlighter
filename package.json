@@ -21,8 +21,14 @@
         "Visualization"
     ],
     "license": "NCSA",
-    "keywords": ["tarkov", "game development", "modding"],
-    "activationEvents": ["onLanguage:typescript"],
+    "keywords": [
+        "tarkov",
+        "game development",
+        "modding"
+    ],
+    "activationEvents": [
+        "onLanguage:typescript"
+    ],
     "main": "./dist/extension.js",
     "contributes": {
         "configuration": {
@@ -33,7 +39,25 @@
                     "type": "string",
                     "default": "en",
                     "description": "Language for item names and descriptions.",
-                    "enum": ["ch", "cz", "en", "es-mx", "es", "fr", "ge", "hu", "it", "jp", "kr", "pl", "po", "ro", "ru", "sk", "tu"],
+                    "enum": [
+                        "ch",
+                        "cz",
+                        "en",
+                        "es-mx",
+                        "es",
+                        "fr",
+                        "ge",
+                        "hu",
+                        "it",
+                        "jp",
+                        "kr",
+                        "pl",
+                        "po",
+                        "ro",
+                        "ru",
+                        "sk",
+                        "tu"
+                    ],
                     "enumDescriptions": [
                         "Chinese",
                         "Czech",
@@ -58,7 +82,10 @@
                     "type": "string",
                     "default": "Name",
                     "description": "Preferred item name type.",
-                    "enum": ["Name", "ShortName"],
+                    "enum": [
+                        "Name",
+                        "ShortName"
+                    ],
                     "enumDescriptions": [
                         "Use the full name of the item.",
                         "Use the short name of the item."
@@ -76,7 +103,7 @@
     },
     "devDependencies": {
         "@types/mocha": "^10.0.6",
-        "@types/node": "18.x",
+        "@types/node": "20.11.0",
         "@types/vscode": "^1.40.0",
         "@typescript-eslint/eslint-plugin": "^6.19.1",
         "@typescript-eslint/parser": "^6.19.1",
