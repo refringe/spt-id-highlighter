@@ -26,7 +26,19 @@ No known issues at this time.
 
 ## Release Notes
 
-### 1.0.0
+### v1.0.2
+
+Enabled for JSON Files
+
+- Update the extension to also work within JSON files.
+
+### v1.0.1
+
+Small README Update
+
+- Updated the README with the correct configuration option names.
+
+### v1.0.0
 
 Initial release of SPT Dev Extension.
 

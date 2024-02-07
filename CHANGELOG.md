@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.0.2 - 2024-02-07
+
+### Enabled for JSON Files
+
+- Update the extension to also work within JSON files.
+
 ## v1.0.1 - 2024-02-04
 
 ### Small README Update

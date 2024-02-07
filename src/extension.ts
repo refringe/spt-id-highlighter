@@ -79,7 +79,7 @@ export function activate(context: vscode.ExtensionContext) {
         }
     }, null, context.subscriptions);
 
-    const hoverProvider = vscode.languages.registerHoverProvider('typescript', {
+    const hoverProvider = vscode.languages.registerHoverProvider(['typescript', 'json'], {
         provideHover(document, position, token) {
             const word = document.getText(document.getWordRangeAtPosition(position));
             const itemData = itemsData[word]; // Access the data using the word as a key

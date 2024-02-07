@@ -5,7 +5,7 @@
     "icon": "images/icon.png",
     "author": "Tyler Brownell <brownelltyler@gmail.com>",
     "publisher": "refringe",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "repository": {
         "type": "git",
         "url": "https://github.com/refringe/spt-dev-vscode-extension.git"
@@ -27,7 +27,8 @@
         "modding"
     ],
     "activationEvents": [
-        "onLanguage:typescript"
+        "onLanguage:typescript",
+        "onLanguage:json"
     ],
     "main": "./dist/extension.js",
     "contributes": {
@@ -99,7 +100,8 @@
         "vscode:prepublish": "npm run package",
         "compile": "npm run transform-data && webpack",
         "watch": "npm run transform-data && webpack --watch",
-        "package": "npm run transform-data && webpack --mode production --devtool hidden-source-map"
+        "package": "npm run transform-data && webpack --mode production --devtool hidden-source-map",
+        "release": "vsce package && vsce publish"
     },
     "devDependencies": {
         "@types/mocha": "^10.0.6",
