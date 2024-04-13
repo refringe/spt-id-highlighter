@@ -56,7 +56,7 @@ export function activate(context: vscode.ExtensionContext) {
             language = configuration.get('language', 'en');
             itemsData = require(`./database/${language}.json`);
 
-            // You might want to update decorations here as well
+            // Update the decorations with the new language data
             updateDecorations();
         }
         if (e.affectsConfiguration('spt-dev.nameType')) {

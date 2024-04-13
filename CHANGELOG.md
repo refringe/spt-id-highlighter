@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.1.0 - 2024-04-12
+
+### Updates
+
+- Updated to for SPT v3.8.0
+- Added trader names
+- Added quest names
+
+### Fixes
+
+- IDs should now only be highlighted when there are corresponding names available.
+
 ## v1.0.2 - 2024-02-07
 
 ### Enabled for JSON Files

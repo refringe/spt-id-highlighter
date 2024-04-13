@@ -26,6 +26,18 @@ No known issues at this time.
 
 ## Release Notes
 
+### v1.1.0
+
+Updates
+
+- Updated to for SPT v3.8.0
+- Added trader names
+- Added quest names
+
+Fixes
+
+- IDs should now only be highlighted when there are corresponding names available.
+
 ### v1.0.2
 
 Enabled for JSON Files
