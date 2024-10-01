@@ -48,16 +48,17 @@ async function updateJsonData() {
           const damage = itemProps.Damage;
           const penetrationPower = itemProps.PenetrationPower;
           const ammoType = itemProps.ammoType;
-
+          const buckshotBullets = itemProps.buckshotBullets
+          let calc_damage = damage
           // Update Name field
           if (damage !== undefined && penetrationPower !== undefined) {
             const originalName = data[key];
             // calculate total damage for buckshot ammo
             if (ammoType === 'buckshot') {
-              damage = damage * itemProps.buckshotBullets
+              calc_damage = damage * buckshotBullets
             }
             // Update name with (Damage/PenetrationPower)
-            data[key] = `${originalName} (${damage}/${penetrationPower})`;
+            data[key] = `${originalName} (${calc_damage}/${penetrationPower})`;
           }
 
         } catch (error) {
