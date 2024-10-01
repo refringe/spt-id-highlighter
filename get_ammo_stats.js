@@ -27,7 +27,7 @@ async function updateJsonData() {
   const totalEntries = Object.keys(data).filter(key => key.includes(" Name")).length;
   let processedEntries = 0;
 
-  console.log(`Starte die Verarbeitung von ${totalEntries} Einträgen...`);
+  console.log(`Updating ${totalEntries} Entries...`);
   for (const key in data) {
     // Only edit the Name Attributes
     if (key.includes(" Name")) {
