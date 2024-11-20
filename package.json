@@ -5,7 +5,7 @@
     "icon": "images/icon.png",
     "author": "Tyler Brownell <brownelltyler@gmail.com>",
     "publisher": "refringe",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "repository": {
         "type": "git",
         "url": "https://github.com/refringe/spt-dev-vscode-extension.git"
@@ -44,6 +44,7 @@
                         "ch",
                         "cz",
                         "en",
+                        "en-ammo",
                         "es-mx",
                         "es",
                         "fr",
@@ -63,6 +64,7 @@
                         "Chinese",
                         "Czech",
                         "English",
+                        "English with Ammo DMG and PEN",
                         "Mexican Spanish",
                         "Spanish",
                         "French",
@@ -104,6 +106,7 @@
         "release": "vsce package && vsce publish"
     },
     "devDependencies": {
+        "@biomejs/biome": "^1.5.3",
         "@types/mocha": "^10.0.6",
         "@types/node": "20.11.0",
         "@types/vscode": "^1.40.0",
@@ -115,7 +118,7 @@
         "ts-loader": "^9.5.1",
         "typescript": "^5.3.3",
         "webpack": "^5.90.0",
-        "@biomejs/biome": "^1.5.3",
-        "webpack-cli": "^5.1.4"
+        "webpack-cli": "^5.1.4",
+        "axios": "^1.7.7"
     }
 }
