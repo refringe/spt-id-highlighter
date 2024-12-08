@@ -104,18 +104,15 @@
         "release": "vsce package && vsce publish"
     },
     "devDependencies": {
+        "@biomejs/biome": "^1.9.4",
         "@types/mocha": "^10.0.6",
-        "@types/node": "20.11.0",
+        "@types/node": "^22.10.1",
         "@types/vscode": "^1.40.0",
-        "@typescript-eslint/eslint-plugin": "^6.19.1",
-        "@typescript-eslint/parser": "^6.19.1",
-        "@vscode/test-cli": "^0.0.4",
+        "@vscode/test-cli": "^0.0.10",
         "@vscode/test-electron": "^2.3.9",
-        "eslint": "^8.56.0",
         "ts-loader": "^9.5.1",
         "typescript": "^5.3.3",
         "webpack": "^5.90.0",
-        "@biomejs/biome": "^1.5.3",
         "webpack-cli": "^5.1.4"
     }
 }

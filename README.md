@@ -1,6 +1,6 @@
 # SPT ID Highlighter
 
-This extension aids in the development of the Single Player Tarkov project by providing easy access to item names and descriptions directly within Visual Studio Code.
+This extension aids in the development of the [Single Player Tarkov](https://github.com/sp-tarkov) project by providing additional information about items, quests, and other game objects all directly within Visual Studio Code.
 
 ## Features
 

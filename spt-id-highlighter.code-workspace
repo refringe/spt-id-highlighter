@@ -1,0 +1,70 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "window.title": "SPT ID Highlighter",
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "biomejs.biome",
+        "editor.codeActionsOnSave": {
+            "source.organizeImports.biome": "explicit",
+            "quickfix.biome": "explicit"
+        },
+        "[javascript]": {
+            "editor.defaultFormatter": "biomejs.biome"
+        }
+    },
+    "extensions": {
+        "recommendations": ["EditorConfig.EditorConfig", "biomejs.biome"]
+    },
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "Run Extension",
+                "type": "extensionHost",
+                "request": "launch",
+                "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
+                "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+                "preLaunchTask": "${defaultBuildTask}"
+            }
+        ]
+    },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "type": "npm",
+                "script": "watch",
+                "problemMatcher": "$ts-webpack-watch",
+                "isBackground": true,
+                "presentation": {
+                    "reveal": "never",
+                    "group": "watchers"
+                },
+                "group": {
+                    "kind": "build",
+                    "isDefault": true
+                }
+            },
+            {
+                "type": "npm",
+                "script": "watch-tests",
+                "problemMatcher": "$tsc-watch",
+                "isBackground": true,
+                "presentation": {
+                    "reveal": "never",
+                    "group": "watchers"
+                },
+                "group": "build"
+            },
+            {
+                "label": "tasks: watch-tests",
+                "dependsOn": ["npm: watch", "npm: watch-tests"],
+                "problemMatcher": []
+            }
+        ]
+    }
+}
