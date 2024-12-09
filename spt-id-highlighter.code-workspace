@@ -12,9 +12,6 @@
             "source.organizeImports.biome": "explicit",
             "quickfix.biome": "explicit"
         },
-        "[javascript]": {
-            "editor.defaultFormatter": "biomejs.biome"
-        }
     },
     "extensions": {
         "recommendations": ["EditorConfig.EditorConfig", "biomejs.biome"]

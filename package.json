@@ -1,11 +1,11 @@
 {
     "name": "spt-id-highlighter",
     "displayName": "SPT ID Highlighter",
-    "description": "This extension aids in the development of the Single Player Tarkov project by providing easy access to item names directly within Visual Studio Code.",
+    "description": "This extension aids in the development of the Single Player Tarkov project by providing additional information about items, quests, and other game objects all directly within Visual Studio Code. ",
     "icon": "images/icon.png",
-    "author": "Tyler Brownell <brownelltyler@gmail.com>",
+    "author": "Refringe <me@refringe.com>",
     "publisher": "refringe",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "repository": {
         "type": "git",
         "url": "https://github.com/refringe/spt-dev-vscode-extension.git"
@@ -16,20 +16,10 @@
     "engines": {
         "vscode": "^1.40.0"
     },
-    "categories": [
-        "Programming Languages",
-        "Visualization"
-    ],
+    "categories": ["Programming Languages", "Visualization"],
     "license": "NCSA",
-    "keywords": [
-        "tarkov",
-        "game development",
-        "modding"
-    ],
-    "activationEvents": [
-        "onLanguage:typescript",
-        "onLanguage:json"
-    ],
+    "keywords": ["tarkov", "game development", "modding"],
+    "activationEvents": ["onLanguage:typescript", "onLanguage:json"],
     "main": "./dist/extension.js",
     "contributes": {
         "configuration": {
@@ -83,24 +73,18 @@
                     "type": "string",
                     "default": "Name",
                     "description": "Preferred item name type.",
-                    "enum": [
-                        "Name",
-                        "ShortName"
-                    ],
-                    "enumDescriptions": [
-                        "Use the full name of the item.",
-                        "Use the short name of the item."
-                    ]
+                    "enum": ["Name", "ShortName"],
+                    "enumDescriptions": ["Use the full name of the item.", "Use the short name of the item."]
                 }
             }
         }
     },
     "scripts": {
-        "transform-data": "node ./transformData.js",
+        "build-data": "node ./scripts/build-data.js",
         "vscode:prepublish": "npm run package",
-        "compile": "npm run transform-data && webpack",
-        "watch": "npm run transform-data && webpack --watch",
-        "package": "npm run transform-data && webpack --mode production --devtool hidden-source-map",
+        "compile": "npm run build-data && webpack",
+        "watch": "npm run build-data && webpack --watch",
+        "package": "npm run build-data && webpack --mode production --devtool hidden-source-map",
         "release": "vsce package && vsce publish"
     },
     "devDependencies": {
