@@ -8,3 +8,15 @@
 #     git lfs track "$file"
 # done
 assets/database/templates/items.json filter=lfs diff=lfs merge=lfs -text
+assets/database/locations/bigmap/looseLoot.json filter=lfs diff=lfs merge=lfs -text
+assets/database/locations/laboratory/looseLoot.json filter=lfs diff=lfs merge=lfs -text
+assets/database/locations/interchange/looseLoot.json filter=lfs diff=lfs merge=lfs -text
+assets/database/locations/factory4_night/looseLoot.json filter=lfs diff=lfs merge=lfs -text
+assets/database/locations/shoreline/looseLoot.json filter=lfs diff=lfs merge=lfs -text
+assets/database/locations/tarkovstreets/looseLoot.json filter=lfs diff=lfs merge=lfs -text
+assets/database/locations/sandbox/looseLoot.json filter=lfs diff=lfs merge=lfs -text
+assets/database/locations/sandbox_high/looseLoot.json filter=lfs diff=lfs merge=lfs -text
+assets/database/locations/lighthouse/looseLoot.json filter=lfs diff=lfs merge=lfs -text
+assets/database/locations/rezervbase/looseLoot.json filter=lfs diff=lfs merge=lfs -text
+assets/database/locations/woods/looseLoot.json filter=lfs diff=lfs merge=lfs -text
+assets/database/locations/factory4_day/looseLoot.json filter=lfs diff=lfs merge=lfs -text
