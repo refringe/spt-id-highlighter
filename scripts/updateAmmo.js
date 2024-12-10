@@ -27,9 +27,28 @@ for (const itemData of itemsData) {
 
 console.log(`Found ${ammoItems.size} ammo items.`);
 
-// Iterate over the ammo items and import the data.
-for (const [id, itemData] of ammoItems) {
-    //
+// Iterate over each of the language files within the data directory
+const dataFiles = fs.readdirSync(dataDir);
+for (const languageFile of dataFiles) {
+    if (path.extname(languageFile) !== ".json") {
+        continue;
+    }
+
+    const languagePath = path.join(dataDir, languageFile);
+    const languageData = require(languagePath);
+
+    for (const [ammoId, itemData] of ammoItems) {
+        languageData[ammoId].Type = "Ammo";
+        languageData[ammoId].Caliber = itemData._props.Caliber;
+        languageData[ammoId].Damage = itemData._props.Damage;
+        languageData[ammoId].ArmorDamage = itemData._props.ArmorDamage;
+        languageData[ammoId].PenetrationPower = itemData._props.PenetrationPower;
+        languageData[ammoId].FleaBlacklisted = ! itemData._props.CanSellOnRagfair;
+        languageData[ammoId].Weight = itemData._props.Weight;
+    }
+
+    // Write back the updated language data.
+    fs.writeFileSync(languagePath, JSON.stringify(languageData, null, 2), "utf-8");
 }
 
 console.log("Ammo data imported.");

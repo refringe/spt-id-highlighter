@@ -16,17 +16,17 @@ for (const traderDirectory of traderDirectories) {
     const traderData = require(traderPath);
     let traderName = "";
 
-    // Iterate over each of the langauge files within the data directory and attempt to find this trader id.
+    // Iterate over each of the language files within the data directory and attempt to find this trader id.
     const dataFiles = fs.readdirSync(dataDir);
-    for (const langaugeFile of dataFiles) {
-        if (path.extname(langaugeFile) !== ".json") {
+    for (const languageFile of dataFiles) {
+        if (path.extname(languageFile) !== ".json") {
             continue;
         }
 
-        const languagePath = path.join(dataDir, langaugeFile);
+        const languagePath = path.join(dataDir, languageFile);
         const languageData = require(languagePath);
 
-        if (langaugeFile === "en.json") {
+        if (languageFile === "en.json") {
             traderName = languageData[traderData._id].Name;
         }
 
