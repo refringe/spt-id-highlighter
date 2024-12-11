@@ -4,10 +4,10 @@ const path = require("node:path");
 const transformLocalesPath = path.join(__dirname, "transformLocales.js");
 require(transformLocalesPath);
 
+// Update the extention database to include generic item information.
+const updateGenericPath = path.join(__dirname, "updateGeneric.js");
+require(updateGenericPath);
+
 // Update the extention database to include trader information.
 const updateTradersPath = path.join(__dirname, "updateTraders.js");
 require(updateTradersPath);
-
-// Update the extention database to include ammo information.
-const updateAmmoPath = path.join(__dirname, "updateAmmo.js");
-require(updateAmmoPath);
