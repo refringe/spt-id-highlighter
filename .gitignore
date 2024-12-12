@@ -5,3 +5,4 @@ node_modules
 *.vsix
 src/database/
 .DS_Store
+src/**/*.js

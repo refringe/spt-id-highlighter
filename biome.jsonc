@@ -4,7 +4,7 @@
         "enabled": true
     },
     "files": {
-        "ignore": [".editorconfig", ".git/*", ".vscode/*", "dist/*", "node_modules/*", "assets/*"]
+        "ignore": [".editorconfig", ".git/*", "dist/*", "node_modules/*", "assets/*", "src/database/*.json"]
     },
     "linter": {
         "enabled": true,
@@ -18,7 +18,7 @@
     "formatter": {
         "enabled": true,
         "formatWithErrors": false,
-        "ignore": ["**/.git", "**/.vscode", "**/dist", "**/node_modules", "**/.editorconfig", "**/assets"],
+        "ignore": ["**/.git", "**/dist", "**/node_modules", "**/.editorconfig", "**/assets", "src/database/*.json"],
         "attributePosition": "auto",
         "indentStyle": "space",
         "indentWidth": 4,

@@ -80,7 +80,7 @@
         }
     },
     "scripts": {
-        "build-data": "node ./scripts/build-data.js",
+        "build-data": "npx tsc buildData.ts && node buildData.js && rm buildData.js",
         "vscode:prepublish": "npm run package",
         "compile": "npm run build-data && webpack",
         "watch": "npm run build-data && webpack --watch",
