@@ -98,7 +98,12 @@ function createHoverContent(item: ItemDetails): vscode.MarkdownString {
     const md = new vscode.MarkdownString();
     md.supportHtml = true;
 
-    md.appendMarkdown(`<h3>${item.Name} [<em>${item.ShortName}</em>]</h3>`);
+    let header = `<h3>${item.Name}`;
+    if (item.Name !== item.ShortName) {
+        header += ` [<em>${item.ShortName}</em>]`;
+    }
+    header += "</h3>";
+    md.appendMarkdown(header);
 
     md.appendMarkdown("<pre>");
     appendValueIfDefined(md, "Type", item.Type);
@@ -123,6 +128,23 @@ function createHoverContent(item: ItemDetails): vscode.MarkdownString {
         appendValueIfDefined(md, "Prefab Path", item.PrefabPath);
     }
 
+    if (item.Type === ItemDetailType.LOCATION) {
+        appendValueIfDefined(md, "Map ID", item.Id);
+        appendValueIfDefined(md, "Airdrop Chance", item.AirdropChance);
+        appendValueIfDefined(md, "Time Limit", item.EscapeTimeLimit);
+        appendValueIfDefined(md, "Insurance", item.Insurance);
+        appendValueIfDefined(md, "Boss Spawns", item.BossSpawns);
+    }
+
+    if (item.Type === ItemDetailType.QUEST) {
+        if (typeof item.Trader !== "undefined" && typeof item.TraderId !== "undefined") {
+            md.appendMarkdown(`Trader: ${item.Trader} - <a href="${item.TraderLink}">${item.TraderId}</a>\n`);
+        } else {
+            appendValueIfDefined(md, "Trader ID", item.TraderId);
+        }
+        appendValueIfDefined(md, "Quest Type", item.QuestType);
+    }
+
     appendValueIfDefined(md, "Weight", item.Weight);
     appendValueIfDefined(md, "Flea Blacklisted", item.FleaBlacklisted);
     appendValueIfDefined(md, "Unlocked By Default", item.UnlockedByDefault);
@@ -141,7 +163,7 @@ function createHoverContent(item: ItemDetails): vscode.MarkdownString {
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 function appendValueIfDefined(md: vscode.MarkdownString, key: string, value: any): void {
-    if (typeof value !== "undefined") {
+    if (typeof value !== "undefined" || (typeof value === "string" && (value as string).trim() !== "")) {
         md.appendMarkdown(`${key}: ${value}\n`);
     }
 }

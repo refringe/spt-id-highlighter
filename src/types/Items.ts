@@ -1,3 +1,5 @@
+import { IAirdropParameter } from "./ILocationBase";
+
 export interface Items {
     [id: string]: ItemDetails;
 }
@@ -33,6 +35,19 @@ export interface ItemDetails {
     IntegratedArmorVest?: boolean;
     AvailableAsDefault?: boolean;
     PrefabPath?: string;
+
+    // Locations
+    Id?: string;
+    AirdropChance?: number;
+    EscapeTimeLimit?: number;
+    Insurance?: boolean;
+    BossSpawns?: string;
+
+    // Quests
+    Trader?: string;
+    TraderId?: string;
+    TraderLink?: string;
+    QuestType?: string;
 }
 
 export enum ItemDetailType {
@@ -40,4 +55,6 @@ export enum ItemDetailType {
     AMMO = "Ammo",
     TRADER = "Trader",
     CUSTOMIZATION = "Customization",
+    LOCATION = "Location",
+    QUEST = "Quest",
 }

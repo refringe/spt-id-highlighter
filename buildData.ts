@@ -1,6 +1,8 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { ICustomizationItem } from "./src/types/ICustomizationItem";
+import { ILocationBase } from "./src/types/ILocationBase";
+import { IQuest } from "./src/types/IQuest";
 import { ITemplateItem } from "./src/types/ITemplateItem";
 import { ItemDetailType, Items } from "./src/types/Items";
 import { ITraderBase } from "./src/types/TraderData";
@@ -8,8 +10,10 @@ import { ITraderBase } from "./src/types/TraderData";
 const localesDir = path.join(__dirname, "./assets/database/locales/global");
 const dataDir = path.join(__dirname, "./src/database");
 const itemsPath = path.join(__dirname, "./assets/database/templates/items.json");
-const customizationsPath = path.join(__dirname, "./assets/database/templates/customization.json");
+const customizationPath = path.join(__dirname, "./assets/database/templates/customization.json");
 const tradersDir = path.join(__dirname, "./assets/database/traders");
+const locationDir = path.join(__dirname, "./assets/database/locations");
+const questPath = path.join(__dirname, "./assets/database/templates/quests.json");
 
 const buildData = async () => {
     console.log("Building data...");
@@ -18,6 +22,8 @@ const buildData = async () => {
     await importGenericItemData();
     await importTraderData();
     await importCustomizationData();
+    await importLocationData();
+    await importQuestData();
 
     console.log("Data built successfully.");
 };
@@ -213,7 +219,7 @@ const importCustomizationData = async (): Promise<void> => {
     console.log("Importing customization item data...");
 
     const customizationData: ICustomizationItem[] = Object.values(
-        JSON.parse(fs.readFileSync(customizationsPath, "utf-8")),
+        JSON.parse(fs.readFileSync(customizationPath, "utf-8")),
     );
 
     const dataFiles = fs.readdirSync(dataDir);
@@ -226,17 +232,26 @@ const importCustomizationData = async (): Promise<void> => {
         const languageData: Items = require(languagePath);
 
         for (const customizationItemData of customizationData) {
-            if (typeof languageData[customizationItemData._id] === "undefined") {
-                // TODO: Instead of skipping, create a new entry for the customization item using the available data for every language. Better than nothing, I guess
-                continue;
+            let languageItem = languageData[customizationItemData._id];
+
+            // Create item if it doesn't exist. Better than nothing...
+            if (!languageItem) {
+                languageItem = languageData[customizationItemData._id] = {
+                    Name:
+                        customizationItemData._props.Name ||
+                        customizationItemData._props.ShortName ||
+                        customizationItemData._name,
+                    ShortName:
+                        customizationItemData._props.ShortName ||
+                        customizationItemData._props.Name ||
+                        customizationItemData._name,
+                };
             }
 
-            const languageItem = languageData[customizationItemData._id]; // Get the item in the language data
-
             languageItem.Type = ItemDetailType.CUSTOMIZATION;
-            languageItem.Description = customizationItemData._props.Description;
+            languageItem.Description = customizationItemData._props.Description?.trim();
             languageItem.BodyPart = customizationItemData._props.BodyPart;
-            languageItem.Sides = customizationItemData._props.Side.join(", ");
+            languageItem.Sides = customizationItemData._props.Side?.join(", ");
             languageItem.IntegratedArmorVest = customizationItemData._props.IntegratedArmorVest;
             languageItem.AvailableAsDefault = customizationItemData._props.AvailableAsDefault;
             languageItem.PrefabPath = customizationItemData._props.Prefab?.path;
@@ -246,6 +261,126 @@ const importCustomizationData = async (): Promise<void> => {
     }
 
     console.log("Customization item data imported.");
+};
+
+const importLocationData = async (): Promise<void> => {
+    console.log("Importing location data...");
+
+    const locationWikiLinks: Map<string, string> = new Map();
+    locationWikiLinks.set("bigmap", "https://escapefromtarkov.fandom.com/wiki/Customs");
+    locationWikiLinks.set("factory4_day", "https://escapefromtarkov.fandom.com/wiki/Factory");
+    locationWikiLinks.set("factory4_night", "https://escapefromtarkov.fandom.com/wiki/Factory");
+    locationWikiLinks.set("interchange", "https://escapefromtarkov.fandom.com/wiki/Interchange");
+    locationWikiLinks.set("laboratory", "https://escapefromtarkov.fandom.com/wiki/The_Lab");
+    locationWikiLinks.set("lighthouse", "https://escapefromtarkov.fandom.com/wiki/Lighthouse");
+    locationWikiLinks.set("rezervbase", "https://escapefromtarkov.fandom.com/wiki/Reserve");
+    locationWikiLinks.set("sandbox", "https://escapefromtarkov.fandom.com/wiki/Ground_Zero");
+    locationWikiLinks.set("sandbox_high", "https://escapefromtarkov.fandom.com/wiki/Ground_Zero");
+    locationWikiLinks.set("shoreline", "https://escapefromtarkov.fandom.com/wiki/Shoreline");
+    locationWikiLinks.set("tarkovstreets", "https://escapefromtarkov.fandom.com/wiki/Streets_of_Tarkov");
+    locationWikiLinks.set("woods", "https://escapefromtarkov.fandom.com/wiki/Woods");
+
+    const locationDirectories = fs.readdirSync(locationDir);
+    for (const locationDirectory of locationDirectories) {
+        const locationPath = path.join(locationDir, locationDirectory, "base.json");
+        if (!fs.existsSync(locationPath)) {
+            console.warn(`Location base.json not found: ${locationPath}`);
+            continue;
+        }
+
+        try {
+            const locationData: ILocationBase = require(locationPath);
+            let locationName = "";
+
+            const dataFiles = fs.readdirSync(dataDir);
+            for (const languageFile of dataFiles) {
+                if (path.extname(languageFile) !== ".json") {
+                    continue;
+                }
+
+                const languagePath = path.join(dataDir, languageFile);
+                const languageData: Items = require(languagePath);
+
+                if (languageData?.[locationData._Id]) {
+                    const languageItem = languageData[locationData._Id];
+
+                    if (languageFile === "en.json") {
+                        locationName = languageItem.Name;
+                    }
+
+                    languageItem.Type = ItemDetailType.LOCATION;
+                    languageItem.Id = locationData.Id;
+                    languageItem.AirdropChance = locationData.AirdropParameters?.[0].PlaneAirdropChance;
+                    if (locationData.BossLocationSpawn) {
+                        let bossSpawnDetails = "";
+                        for (const boss of locationData.BossLocationSpawn) {
+                            const excludedBosses = ["pmcUSEC", "pmcBEAR", "exUsec", "pmcBot"];
+                            if (!excludedBosses.includes(boss.BossName)) {
+                                bossSpawnDetails += `\n- ${boss.BossName} (${boss.BossChance}%)`;
+                            }
+                        }
+                        if (bossSpawnDetails !== "") {
+                            languageItem.BossSpawns = bossSpawnDetails;
+                        }
+                    }
+                    languageItem.EscapeTimeLimit = locationData.EscapeTimeLimit;
+                    languageItem.DetailLink = locationWikiLinks.get(locationData.Id.toLowerCase()) || undefined;
+                } else {
+                    console.warn(`Location ${locationData._Id} not found in ${languageFile}`);
+                }
+                fs.writeFileSync(languagePath, JSON.stringify(languageData, null, 2), "utf-8");
+            }
+
+            console.log(`Location data for ${locationName} imported.`);
+        } catch (error) {
+            console.error(`Error processing location data from ${locationPath}:`, error);
+        }
+    }
+
+    console.log("Location data imported.");
+};
+
+const importQuestData = async (): Promise<void> => {
+    console.log("Importing quest data...");
+
+    const questsData: IQuest[] = Object.values(JSON.parse(fs.readFileSync(questPath, "utf-8")));
+
+    const dataFiles = fs.readdirSync(dataDir);
+    for (const languageFile of dataFiles) {
+        if (path.extname(languageFile) !== ".json") {
+            continue;
+        }
+
+        const languagePath = path.join(dataDir, languageFile);
+        const languageData: Items = require(languagePath);
+
+        for (const questData of questsData) {
+            if (typeof languageData[questData._id] === "undefined") {
+                console.log(`quest id ${questData._id} not found`);
+                continue; // Skip items without translation data.
+            }
+
+            const languageItem = languageData[questData._id];
+
+            languageItem.Type = ItemDetailType.QUEST;
+
+            const traderName = languageData[questData.traderId]?.Name;
+            if (traderName) {
+                languageItem.Trader = traderName;
+                languageItem.TraderLink = `https://escapefromtarkov.fandom.com/wiki/${traderName.replace(/ /g, "_")}`;
+            }
+
+            languageItem.TraderId = questData.traderId;
+            languageItem.QuestType = questData.type;
+            if (questData.QuestName) {
+                languageItem.DetailLink = `https://escapefromtarkov.fandom.com/wiki/${questData.QuestName.replace(/ /g, "_")}`;
+            }
+        }
+
+        fs.writeFileSync(languagePath, JSON.stringify(languageData, null, 2), "utf-8");
+    }
+
+    console.log("Quest info imported.");
 };
 
 buildData();
