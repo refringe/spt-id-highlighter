@@ -34,9 +34,9 @@
     "contributes": {
         "configuration": {
             "type": "object",
-            "title": "SPT Dev Configuration",
+            "title": "SPT ID Highlighter Configuration",
             "properties": {
-                "spt-dev.language": {
+                "spt-id-highlighter.language": {
                     "type": "string",
                     "default": "en",
                     "description": "Language for item names and descriptions.",

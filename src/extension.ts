@@ -1,16 +1,107 @@
+import * as fs from "node:fs";
+import * as path from "node:path";
 import * as vscode from "vscode";
 import { ItemDetailType, ItemDetails, Items } from "./types/Items";
 
 export function activate(context: vscode.ExtensionContext) {
-    console.log("The SPT Dev extension is now active.");
+    console.log("The SPT ID Highlighter extension is now active.");
+
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    const validateItemDetails = (details: any): details is ItemDetails => {
+        const validItemKeys: Array<keyof ItemDetails> = [
+            "Name",
+            "ShortName",
+            "Type",
+            "DetailLink",
+            "Parent",
+            "ParentID",
+            "ParentDetailLink",
+            "FleaBlacklisted",
+            "QuestItem",
+            "Weight",
+            "Caliber",
+            "Damage",
+            "ArmorDamage",
+            "PenetrationPower",
+            "Currency",
+            "UnlockedByDefault",
+            "Description",
+            "BodyPart",
+            "Sides",
+            "IntegratedArmorVest",
+            "AvailableAsDefault",
+            "PrefabPath",
+            "Id",
+            "AirdropChance",
+            "EscapeTimeLimit",
+            "Insurance",
+            "BossSpawns",
+            "Trader",
+            "TraderId",
+            "TraderLink",
+            "QuestType",
+        ];
+        return Object.keys(details).every((key) => validItemKeys.includes(key as keyof ItemDetails));
+    };
+
+    const getProjectRoot = (): string => {
+        const folders = vscode.workspace.workspaceFolders;
+        return folders && folders.length > 0 ? folders[0].uri.fsPath : "";
+    };
+
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    const loadCustomIds = (projectRoot: string): Record<string, any> => {
+        const sptidsPath = path.join(projectRoot, ".sptids");
+        if (!fs.existsSync(sptidsPath)) {
+            return {};
+        }
+
+        try {
+            const rawData = fs.readFileSync(sptidsPath, "utf-8");
+            return JSON.parse(rawData);
+        } catch (error) {
+            console.error(`SPT ID Highlighter: Failed to load .sptids file: ${error}`);
+            vscode.window.showErrorMessage("SPT ID Highlighter: The .sptids file is invalid or could not be read.");
+            return {};
+        }
+    };
+
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    const mergeCustomItems = (baseData: Items, customData: Record<string, any>, lang: string): Items => {
+        const mergedData = { ...baseData };
+
+        for (const [id, localizedData] of Object.entries(customData)) {
+            if (localizedData[lang]) {
+                const customDetails = localizedData[lang];
+                if (validateItemDetails(customDetails)) {
+                    mergedData[id] = {
+                        ...mergedData[id],
+                        ...customDetails,
+                    };
+                } else {
+                    console.warn(`SPT ID Highlighter: Invalid item properties for ID ${id} in .sptids.`);
+                    vscode.window.showWarningMessage(
+                        `SPT ID Highlighter: Invalid item properties for ID ${id} in .sptids.`,
+                    );
+                }
+            }
+        }
+
+        return mergedData;
+    };
 
     const loadItemsData = (lang: string): Items => {
         try {
-            return require(`./database/${lang}.json`);
+            const baseData = require(`./database/${lang}.json`);
+            const projectRoot = getProjectRoot();
+            const customData = loadCustomIds(projectRoot);
+            return mergeCustomItems(baseData, customData, lang);
         } catch (error) {
-            console.error(`Failed to load language file: ${lang}.json`, error);
-            vscode.window.showErrorMessage(`Failed to load language data for ${lang}. Falling back to English.`);
-            return require("./database/en.json"); // Fallback to English
+            console.error(`SPT ID Highlighter: Failed to load language file: ${lang}.json`, error);
+            vscode.window.showErrorMessage(
+                `SPT ID Highlighter: Failed to load language data for ${lang}. Falling back to English.`,
+            );
+            return require("./database/en.json");
         }
     };
 
@@ -18,13 +109,15 @@ export function activate(context: vscode.ExtensionContext) {
         try {
             return require(`./translations/${lang}.json`);
         } catch (error) {
-            console.error(`Failed to load translation file: ${lang}.json`, error);
-            vscode.window.showErrorMessage(`Failed to load translations for ${lang}. Falling back to English.`);
+            console.error(`SPT ID Highlighter: Failed to load translation file: ${lang}.json`, error);
+            vscode.window.showErrorMessage(
+                `SPT ID Highlighter: Failed to load translations for ${lang}. Falling back to English.`,
+            );
             return require("./translations/en.json"); // Fallback to English
         }
     };
 
-    let configuration = vscode.workspace.getConfiguration("spt-dev");
+    let configuration = vscode.workspace.getConfiguration("spt-id-highlighter");
     let language = configuration.get("language", "en");
     let itemsData: Items = loadItemsData(language);
     let translations: Record<string, string> = loadTranslations(language);
@@ -63,10 +156,42 @@ export function activate(context: vscode.ExtensionContext) {
         updateDecorations();
     }
 
+    const projectRoot = getProjectRoot();
+    if (fs.existsSync(projectRoot)) {
+        const watcher = fs.watch(projectRoot, (eventType, filename) => {
+            if (filename === ".sptids") {
+                const sptidsPath = path.join(projectRoot, ".sptids");
+                if (eventType === "rename") {
+                    // File created or deleted
+                    if (fs.existsSync(sptidsPath)) {
+                        console.log("SPT ID Highlighter: Detected .sptids creation. Reloading...");
+                        itemsData = loadItemsData(language); // Reload items data
+                        updateDecorations(); // Update decorations
+                        vscode.window.showInformationMessage("SPT ID Highlighter: Successfully loaded custom items.");
+                    } else {
+                        console.log("SPT ID Highlighter: Detected .sptids file deletion.");
+                        itemsData = loadItemsData(language); // Reload without custom items
+                        updateDecorations(); // Update decorations
+                        vscode.window.showWarningMessage("SPT ID Highlighter: Successfully unloaded custom items.");
+                    }
+                } else if (eventType === "change") {
+                    // File updated
+                    console.log("SPT ID Highlighter: Detected .sptids file change. Reloading...");
+                    itemsData = loadItemsData(language); // Reload items data
+                    updateDecorations(); // Update decorations
+                    vscode.window.showInformationMessage("SPT ID Highlighter: Successfully reloaded custom items.");
+                }
+            }
+        });
+        context.subscriptions.push({
+            dispose: () => watcher.close(),
+        });
+    }
+
     context.subscriptions.push(
         vscode.workspace.onDidChangeConfiguration((e) => {
-            if (e.affectsConfiguration("spt-dev.language")) {
-                configuration = vscode.workspace.getConfiguration("spt-dev");
+            if (e.affectsConfiguration("spt-id-highlighter.language")) {
+                configuration = vscode.workspace.getConfiguration("spt-id-highlighter");
                 language = configuration.get("language", "en");
                 itemsData = loadItemsData(language);
                 translations = loadTranslations(language);

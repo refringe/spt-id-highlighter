@@ -4,8 +4,9 @@ This extension aids in the development of the [Single Player Tarkov](https://git
 
 ## Features
 
-- **Hover Information**: Hover over an item ID to see the full item name or short name, depending on your settings.
+- **Hover Information**: Hover over a SPT ID to see additional information about the object.
 - **Multilingual Support**: Choose from a variety of languages for item names and descriptions.
+- **Custom ID Support**: Add a `.sptids` file to your project to provide information on custom IDs. [Example here.](https://github.com/refringe/spt-id-highlighter/wiki/Custom-ID-Support)
 
 ![Hover Feature Example](https://github.com/refringe/spt-id-highlighter/blob/main/images/example.gif?raw=true)
 
@@ -18,13 +19,20 @@ This extension requires Visual Studio Code version 1.40.0 or later.
 This extension contributes the following settings:
 
 - `spt-id-highlighter.language`: specify the language for item names and descriptions.
-- `spt-id-highlighter.nameType`: choose between displaying the full item name or the short name on hover.
 
 ## Known Issues
 
 No known issues at this time.
 
 ## Release Notes
+
+### v1.2.0
+
+Updates
+
+- Updated IDs for SPT v3.10
+- Greatly expanded the data that is available on hover
+- Added support for custom IDs via a `.sptids` file. [Example here.](https://github.com/refringe/spt-id-highlighter/wiki/Custom-ID-Support)
 
 ### v1.1.0
 
@@ -60,4 +68,4 @@ Initial release of SPT Dev Extension.
 
 ## License
 
-This extension is licensed under the [NCSA License](LICENSE). The locale assets are provided by the [SPT-AKI project](https://dev.sp-tarkov.com/SPT-AKI/Server) and are licensed under the [NCSA License](assets/database/locales/LICENSE).
+This extension is licensed under the [NCSA License](LICENSE). The locale assets are provided by the [SPT project](https://github.com/sp-tarkov/server) and are licensed under the [NCSA License](assets/database/locales/LICENSE).
