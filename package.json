@@ -78,19 +78,6 @@
                         "Slovak",
                         "Turkish"
                     ]
-                },
-                "spt-dev.nameType": {
-                    "type": "string",
-                    "default": "Name",
-                    "description": "Preferred item name type.",
-                    "enum": [
-                        "Name",
-                        "ShortName"
-                    ],
-                    "enumDescriptions": [
-                        "Use the full name of the item.",
-                        "Use the short name of the item."
-                    ]
                 }
             }
         }

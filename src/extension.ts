@@ -26,7 +26,6 @@ export function activate(context: vscode.ExtensionContext) {
 
     let configuration = vscode.workspace.getConfiguration("spt-dev");
     let language = configuration.get("language", "en");
-    let nameType = configuration.get("nameType", "Name");
     let itemsData: Items = loadItemsData(language);
     let translations: Record<string, string> = loadTranslations(language);
 
@@ -72,10 +71,6 @@ export function activate(context: vscode.ExtensionContext) {
                 itemsData = loadItemsData(language);
                 translations = loadTranslations(language);
                 updateDecorations();
-            }
-            if (e.affectsConfiguration("spt-dev.nameType")) {
-                configuration = vscode.workspace.getConfiguration("spt-dev");
-                nameType = configuration.get("nameType", "Name");
             }
         }),
         vscode.window.onDidChangeActiveTextEditor((editor) => {
