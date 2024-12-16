@@ -14,10 +14,21 @@ export function activate(context: vscode.ExtensionContext) {
         }
     };
 
+    const loadTranslations = (lang: string): Record<string, string> => {
+        try {
+            return require(`./translations/${lang}.json`);
+        } catch (error) {
+            console.error(`Failed to load translation file: ${lang}.json`, error);
+            vscode.window.showErrorMessage(`Failed to load translations for ${lang}. Falling back to English.`);
+            return require("./translations/en.json"); // Fallback to English
+        }
+    };
+
     let configuration = vscode.workspace.getConfiguration("spt-dev");
     let language = configuration.get("language", "en");
     let nameType = configuration.get("nameType", "Name");
     let itemsData: Items = loadItemsData(language);
+    let translations: Record<string, string> = loadTranslations(language);
 
     const decorationType = vscode.window.createTextEditorDecorationType({
         fontStyle: "italic",
@@ -59,6 +70,7 @@ export function activate(context: vscode.ExtensionContext) {
                 configuration = vscode.workspace.getConfiguration("spt-dev");
                 language = configuration.get("language", "en");
                 itemsData = loadItemsData(language);
+                translations = loadTranslations(language);
                 updateDecorations();
             }
             if (e.affectsConfiguration("spt-dev.nameType")) {
@@ -87,14 +99,14 @@ export function activate(context: vscode.ExtensionContext) {
                 const itemData = itemsData[word];
 
                 if (itemData) {
-                    return new vscode.Hover(createHoverContent(itemData));
+                    return new vscode.Hover(createHoverContent(itemData, translations));
                 }
             },
         }),
     );
 }
 
-function createHoverContent(item: ItemDetails): vscode.MarkdownString {
+function createHoverContent(item: ItemDetails, translations: Record<string, string>): vscode.MarkdownString {
     const md = new vscode.MarkdownString();
     md.supportHtml = true;
 
@@ -106,55 +118,59 @@ function createHoverContent(item: ItemDetails): vscode.MarkdownString {
     md.appendMarkdown(header);
 
     md.appendMarkdown("<pre>");
-    appendValueIfDefined(md, "Type", item.Type);
+    appendValueIfDefined(md, translations["Type:"], item.Type);
 
     if (typeof item.Parent !== "undefined" && typeof item.ParentID !== "undefined") {
-        md.appendMarkdown(`Parent: ${item.Parent} - <a href="${item.ParentDetailLink}">${item.ParentID}</a>\n`);
+        md.appendMarkdown(
+            `${translations["Parent:"]} ${item.Parent} - <a href="${item.ParentDetailLink}">${item.ParentID}</a>\n`,
+        );
     }
 
     if (item.Type === ItemDetailType.AMMO) {
-        appendValueIfDefined(md, "Caliber", item.Caliber);
-        appendValueIfDefined(md, "Damage", item.Damage);
-        appendValueIfDefined(md, "Armor Damage", item.ArmorDamage);
-        appendValueIfDefined(md, "Penetration Power", item.PenetrationPower);
+        appendValueIfDefined(md, translations["Caliber:"], item.Caliber);
+        appendValueIfDefined(md, translations["Damage:"], item.Damage);
+        appendValueIfDefined(md, translations["Armor Damage:"], item.ArmorDamage);
+        appendValueIfDefined(md, translations["Penetration Power:"], item.PenetrationPower);
     }
 
     if (item.Type === ItemDetailType.CUSTOMIZATION) {
-        appendValueIfDefined(md, "Description", item.Description);
-        appendValueIfDefined(md, "Body Part", item.BodyPart);
-        appendValueIfDefined(md, "Sides", item.Sides);
-        appendValueIfDefined(md, "Integrated Armor", item.IntegratedArmorVest);
-        appendValueIfDefined(md, "Available By Default", item.AvailableAsDefault);
-        appendValueIfDefined(md, "Prefab Path", item.PrefabPath);
+        appendValueIfDefined(md, translations["Description:"], item.Description);
+        appendValueIfDefined(md, translations["Body Part:"], item.BodyPart);
+        appendValueIfDefined(md, translations["Sides:"], item.Sides);
+        appendValueIfDefined(md, translations["Integrated Armor:"], item.IntegratedArmorVest);
+        appendValueIfDefined(md, translations["Available By Default:"], item.AvailableAsDefault);
+        appendValueIfDefined(md, translations["Prefab Path:"], item.PrefabPath);
     }
 
     if (item.Type === ItemDetailType.LOCATION) {
-        appendValueIfDefined(md, "Map ID", item.Id);
-        appendValueIfDefined(md, "Airdrop Chance", item.AirdropChance);
-        appendValueIfDefined(md, "Time Limit", item.EscapeTimeLimit);
-        appendValueIfDefined(md, "Insurance", item.Insurance);
-        appendValueIfDefined(md, "Boss Spawns", item.BossSpawns);
+        appendValueIfDefined(md, translations["Map ID:"], item.Id);
+        appendValueIfDefined(md, translations["Airdrop Chance:"], item.AirdropChance);
+        appendValueIfDefined(md, translations["Time Limit:"], item.EscapeTimeLimit);
+        appendValueIfDefined(md, translations["Insurance:"], item.Insurance);
+        appendValueIfDefined(md, translations["Boss Spawns:"], item.BossSpawns);
     }
 
     if (item.Type === ItemDetailType.QUEST) {
         if (typeof item.Trader !== "undefined" && typeof item.TraderId !== "undefined") {
-            md.appendMarkdown(`Trader: ${item.Trader} - <a href="${item.TraderLink}">${item.TraderId}</a>\n`);
+            md.appendMarkdown(
+                `${translations["Trader:"]} ${item.Trader} - <a href="${item.TraderLink}">${item.TraderId}</a>\n`,
+            );
         } else {
-            appendValueIfDefined(md, "Trader ID", item.TraderId);
+            appendValueIfDefined(md, translations["Trader ID:"], item.TraderId);
         }
-        appendValueIfDefined(md, "Quest Type", item.QuestType);
+        appendValueIfDefined(md, translations["Quest Type:"], item.QuestType);
     }
 
-    appendValueIfDefined(md, "Weight", item.Weight);
-    appendValueIfDefined(md, "Flea Blacklisted", item.FleaBlacklisted);
-    appendValueIfDefined(md, "Unlocked By Default", item.UnlockedByDefault);
+    appendValueIfDefined(md, translations["Weight:"], item.Weight);
+    appendValueIfDefined(md, translations["Flea Blacklisted:"], item.FleaBlacklisted);
+    appendValueIfDefined(md, translations["Unlocked By Default:"], item.UnlockedByDefault);
 
     md.appendMarkdown("</pre>");
 
     if (typeof item.DetailLink !== "undefined") {
         md.appendMarkdown("<hr>");
         md.appendMarkdown(
-            `<p><strong>Full Details:</strong><br><a href="${item.DetailLink}">${item.DetailLink}</a></p>`,
+            `<p><strong>${translations["Full Details:"]}</strong><br><a href="${item.DetailLink}">${item.DetailLink}</a></p>`,
         );
     }
 
@@ -164,7 +180,7 @@ function createHoverContent(item: ItemDetails): vscode.MarkdownString {
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 function appendValueIfDefined(md: vscode.MarkdownString, key: string, value: any): void {
     if (typeof value !== "undefined" || (typeof value === "string" && (value as string).trim() !== "")) {
-        md.appendMarkdown(`${key}: ${value}\n`);
+        md.appendMarkdown(`${key} ${value}\n`);
     }
 }
 

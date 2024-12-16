@@ -16,10 +16,20 @@
     "engines": {
         "vscode": "^1.40.0"
     },
-    "categories": ["Programming Languages", "Visualization"],
+    "categories": [
+        "Programming Languages",
+        "Visualization"
+    ],
     "license": "NCSA",
-    "keywords": ["tarkov", "game development", "modding"],
-    "activationEvents": ["onLanguage:typescript", "onLanguage:json"],
+    "keywords": [
+        "tarkov",
+        "game development",
+        "modding"
+    ],
+    "activationEvents": [
+        "onLanguage:typescript",
+        "onLanguage:json"
+    ],
     "main": "./dist/extension.js",
     "contributes": {
         "configuration": {
@@ -50,7 +60,7 @@
                         "tu"
                     ],
                     "enumDescriptions": [
-                        "Chinese",
+                        "Simplified Chinese",
                         "Czech",
                         "English",
                         "Mexican Spanish",
@@ -73,8 +83,14 @@
                     "type": "string",
                     "default": "Name",
                     "description": "Preferred item name type.",
-                    "enum": ["Name", "ShortName"],
-                    "enumDescriptions": ["Use the full name of the item.", "Use the short name of the item."]
+                    "enum": [
+                        "Name",
+                        "ShortName"
+                    ],
+                    "enumDescriptions": [
+                        "Use the full name of the item.",
+                        "Use the short name of the item."
+                    ]
                 }
             }
         }

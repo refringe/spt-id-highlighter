@@ -4,12 +4,22 @@
         "enabled": true
     },
     "files": {
-        "ignore": [".editorconfig", ".git/*", "dist/*", "node_modules/*", "assets/*", "src/database/*.json"]
+        "ignore": [
+            ".editorconfig",
+            ".git/*",
+            "dist/*",
+            "node_modules/*",
+            "assets/*",
+            "src/database/*.json"
+        ]
     },
     "linter": {
         "enabled": true,
         "rules": {
             "recommended": true,
+            "complexity": {
+                "useLiteralKeys": "off"
+            },
             "style": {
                 "useImportType": "off"
             }
@@ -18,7 +28,14 @@
     "formatter": {
         "enabled": true,
         "formatWithErrors": false,
-        "ignore": ["**/.git", "**/dist", "**/node_modules", "**/.editorconfig", "**/assets", "src/database/*.json"],
+        "ignore": [
+            "**/.git",
+            "**/dist",
+            "**/node_modules",
+            "**/.editorconfig",
+            "**/assets",
+            "src/database/*.json"
+        ],
         "attributePosition": "auto",
         "indentStyle": "space",
         "indentWidth": 4,
