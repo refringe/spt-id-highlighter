@@ -1,0 +1,324 @@
+{
+  "projectName": "SPT",
+  "compatibleTarkovVersion": "0.16.9.40087",
+  "serverName": "SPT Server",
+  "profileSaveIntervalSeconds": 60,
+  "sptFriendNickname": "SPT",
+  "allowProfileWipe": true,
+  "enableNoGCRegions": true,
+  "noGCRegionMaxMemoryGB": 4,
+  "noGCRegionMaxLOHMemoryGB": 3,
+  "bsgLogging": {
+    "verbosity": 6,
+    "sendToServer": false
+  },
+  "release": {
+    "betaDisclaimerTimeoutDelay": 30
+  },
+  "fixes": {
+    "fixShotgunDispersion": true,
+    "shotgunIdsToFix": [
+      "576165642459773c7a400233",
+      "5a38e6bac4a2826c6e06d79b",
+      "5a7828548dc32e5a9c28b516",
+      "674fe9a75e51f1c47c04ec23"
+    ],
+    "removeModItemsFromProfile": false,
+    "removeInvalidTradersFromProfile": false,
+    "fixProfileBreakingInventoryItemIssues": false,
+    "renamePreRaidLocales": true
+  },
+  "survey": {
+    "locale": {
+      "en": {
+        "question_1": "An update to a popular mod that makes the game more realistic has been released, which of the following actions on discord will you do?",
+        "question_1_answer_1": "Ignore the changelog",
+        "question_1_answer_2": "Ignore the readme",
+        "question_1_answer_3": "Ask in general chat why the guns don't shoot",
+        "question_1_answer_4": "Argue with general chat when they tell you to read the readme",
+        "question_1_answer_5": "Install as many mods as you can at the same time and get mad when everything breaks",
+        "question_1_answer_6": "Inform general chat of your displeasure and get mad when they laugh at you",
+        "question_1_answer_7": "Tag staff to inform them of your displeasure of a mod you don't like being released",
+        "question_1_answer_8": "DM the author informing them of your displeasure at their mods existence",
+        "question_1_answer_9": "DM the author and inform them you are going to sue them",
+        "question_1_answer_10": "Stalk the author and create dozens of forge accounts to message them",
+
+        "question_2": "You want to download an older version of SPT but you have been informed old versions cannot be downloaded, what do you do?",
+        "question_2_answer_1": "Get mad",
+        "question_2_answer_2": "Get REAL mad and voice your opinion in every possible chat you can",
+        "question_2_answer_3": "Travel around various discords informing anyone who listens what bad people SPT are",
+        "question_2_answer_4": "Create dozens of alt accounts to DM staff and inform them of your displeasure",
+        "question_2_answer_5": "Ask when the old SPT version is coming back every day for weeks",
+
+        "question_3": "You are requesting help on the discord, what should you do?",
+        "question_3_answer_1": "Ignore the FAQ and any channel vaguely support related",
+        "question_3_answer_2": "Post in the pets channel, haha meow meow",
+        "question_3_answer_3": "Pretend discord search does not exist and has never existed",
+        "question_3_answer_4": "DM staff",
+        "question_3_answer_5": "DM staff AND helpers, its their job to help",
+        "question_3_answer_6": "DM staff, helpers AND anyone with a colored name, one of them will surely know the answer",
+        "question_3_answer_7": "Post no logs, people should know what the problem is without me explaining",
+        "question_3_answer_8": "Post logs in any channel EXCEPT support",
+        "question_3_answer_9": "Ask for help in the support channel, but its for your friend who goes to a different hideout, they wouldn't know them",
+        "question_3_answer_10": "Ask for help in the support channel then immediately disappear for 72 hours and ignore any responses",
+        "question_3_answer_11": "Start insulting helpers when they give you the answer that resolves your problem",
+        "question_3_answer_12": "Go insane and get permabanned when asked basic questions about your problem",
+        "question_3_answer_13": "Ask for help with FIKA and then threaten to kill people when you're told to instead get help in FIKA discord",
+        "question_3_answer_14": "Ask in the correct channel, post logs, get an answer and then when asked if the suggestion fixed the problem, DISAPPEAR AND NEVER BE SEEN FROM EVER AGAIN",
+
+        "title": "Feedback survey",
+        "time": "About 1 minute",
+        "description": "This was the third SPT survey, thanks for the data.",
+        "farewell": "You keep filling these out even after we tell you they don't do anything, curious."
+      }
+    },
+    "survey": {
+      "id": 1,
+      "welcomePageData": {
+        "titleLocaleKey": "title",
+        "timeLocaleKey": "time",
+        "descriptionLocaleKey": "description"
+      },
+      "farewellPageData": {
+        "textLocaleKey": "farewell"
+      },
+      "pages": [
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "questions": [
+        {
+          "id": 0,
+          "sortIndex": 1,
+          "titleLocaleKey": "question_1",
+          "hintLocaleKey": "",
+          "answerLimit": 10,
+          "answerType": "MultiOption",
+          "answers": [
+            {
+              "id": 0,
+              "questionId": 0,
+              "sortIndex": 1,
+              "localeKey": "question_1_answer_1"
+            },
+            {
+              "id": 1,
+              "questionId": 0,
+              "sortIndex": 1,
+              "localeKey": "question_1_answer_2"
+            },
+            {
+              "id": 2,
+              "questionId": 0,
+              "sortIndex": 1,
+              "localeKey": "question_1_answer_3"
+            },
+            {
+              "id": 3,
+              "questionId": 0,
+              "sortIndex": 1,
+              "localeKey": "question_1_answer_4"
+            },
+            {
+              "id": 4,
+              "questionId": 0,
+              "sortIndex": 1,
+              "localeKey": "question_1_answer_5"
+            },
+            {
+              "id": 5,
+              "questionId": 0,
+              "sortIndex": 1,
+              "localeKey": "question_1_answer_6"
+            },
+            {
+              "id": 6,
+              "questionId": 0,
+              "sortIndex": 1,
+              "localeKey": "question_1_answer_7"
+            },
+            {
+              "id": 7,
+              "questionId": 0,
+              "sortIndex": 1,
+              "localeKey": "question_1_answer_8"
+            },
+            {
+              "id": 8,
+              "questionId": 0,
+              "sortIndex": 1,
+              "localeKey": "question_1_answer_9"
+            },
+            {
+              "id": 9,
+              "questionId": 0,
+              "sortIndex": 1,
+              "localeKey": "question_1_answer_10"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "sortIndex": 1,
+          "titleLocaleKey": "question_2",
+          "hintLocaleKey": "",
+          "answerLimit": 5,
+          "answerType": "SingleOption",
+          "answers": [
+            {
+              "id": 0,
+              "questionId": 1,
+              "sortIndex": 1,
+              "localeKey": "question_2_answer_1"
+            },
+            {
+              "id": 1,
+              "questionId": 1,
+              "sortIndex": 1,
+              "localeKey": "question_2_answer_2"
+            },
+            {
+              "id": 2,
+              "questionId": 1,
+              "sortIndex": 1,
+              "localeKey": "question_2_answer_3"
+            },
+            {
+              "id": 3,
+              "questionId": 1,
+              "sortIndex": 1,
+              "localeKey": "question_2_answer_4"
+            },
+            {
+              "id": 4,
+              "questionId": 1,
+              "sortIndex": 1,
+              "localeKey": "question_2_answer_5"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "sortIndex": 1,
+          "titleLocaleKey": "question_3",
+          "hintLocaleKey": "",
+          "answerLimit": 5,
+          "answerType": "MultiOption",
+          "answers": [
+            {
+              "id": 0,
+              "questionId": 2,
+              "sortIndex": 1,
+              "localeKey": "question_3_answer_1"
+            },
+            {
+              "id": 1,
+              "questionId": 2,
+              "sortIndex": 1,
+              "localeKey": "question_3_answer_2"
+            },
+            {
+              "id": 2,
+              "questionId": 2,
+              "sortIndex": 1,
+              "localeKey": "question_3_answer_3"
+            },
+            {
+              "id": 3,
+              "questionId": 2,
+              "sortIndex": 1,
+              "localeKey": "question_3_answer_4"
+            },
+            {
+              "id": 4,
+              "questionId": 2,
+              "sortIndex": 1,
+              "localeKey": "question_3_answer_5"
+            },
+            {
+              "id": 5,
+              "questionId": 2,
+              "sortIndex": 1,
+              "localeKey": "question_3_answer_6"
+            },
+            {
+              "id": 6,
+              "questionId": 2,
+              "sortIndex": 1,
+              "localeKey": "question_3_answer_7"
+            },
+            {
+              "id": 7,
+              "questionId": 2,
+              "sortIndex": 1,
+              "localeKey": "question_3_answer_8"
+            },
+            {
+              "id": 8,
+              "questionId": 2,
+              "sortIndex": 1,
+              "localeKey": "question_3_answer_9"
+            },
+            {
+              "id": 9,
+              "questionId": 2,
+              "sortIndex": 1,
+              "localeKey": "question_3_answer_10"
+            },
+            {
+              "id": 10,
+              "questionId": 2,
+              "sortIndex": 1,
+              "localeKey": "question_3_answer_11"
+            },
+            {
+              "id": 11,
+              "questionId": 2,
+              "sortIndex": 1,
+              "localeKey": "question_3_answer_12"
+            },
+            {
+              "id": 12,
+              "questionId": 2,
+              "sortIndex": 1,
+              "localeKey": "question_3_answer_13"
+            },
+            {
+              "id": 13,
+              "questionId": 2,
+              "sortIndex": 1,
+              "localeKey": "question_3_answer_14"
+            }
+          ]
+        }
+      ],
+      "isNew": false
+    }
+  },
+  "features": {
+    "compressProfile": false,
+    "chatbotFeatures": {
+      "sptFriendGiftsEnabled": true,
+      "commandoFeatures": {
+        "giveCommandEnabled": true
+      },
+      "commandUseLimits": {
+        "StashRows": 28
+      },
+      "ids": {
+        "commando": "6723fd51c5924c57ce0ca01e",
+        "spt": "6723fd51c5924c57ce0ca01f"
+      },
+      "enabledBots": {
+        "6723fd51c5924c57ce0ca01e": true,
+        "6723fd51c5924c57ce0ca01f": true
+      }
+    },
+    "createNewProfileTypesBlacklist": [],
+    "achievementProfileIdBlacklist": []
+  },
+  "customWatermarkLocaleKeys": []
+}

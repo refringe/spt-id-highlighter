@@ -7,13 +7,13 @@ import { ITemplateItem } from "./src/types/ITemplateItem";
 import { ItemDetailType, Items } from "./src/types/Items";
 import { ITraderBase } from "./src/types/TraderData";
 
-const localesDir = path.join(__dirname, "./assets/database/locales/global");
+const localesDir = path.join(__dirname, "./SPT_Data/database/locales/global");
 const dataDir = path.join(__dirname, "./src/database");
-const itemsPath = path.join(__dirname, "./assets/database/templates/items.json");
-const customizationPath = path.join(__dirname, "./assets/database/templates/customization.json");
-const tradersDir = path.join(__dirname, "./assets/database/traders");
-const locationDir = path.join(__dirname, "./assets/database/locations");
-const questPath = path.join(__dirname, "./assets/database/templates/quests.json");
+const itemsPath = path.join(__dirname, "./SPT_Data/database/templates/items.json");
+const customizationPath = path.join(__dirname, "./SPT_Data/database/templates/customization.json");
+const tradersDir = path.join(__dirname, "./SPT_Data/database/traders");
+const locationDir = path.join(__dirname, "./SPT_Data/database/locations");
+const questPath = path.join(__dirname, "./SPT_Data/database/templates/quests.json");
 
 const buildData = async () => {
     console.log("Building data...");
@@ -91,6 +91,10 @@ const optimizeLocales = async (): Promise<void> => {
             if (transformedData[id] && !transformedData[id].Name && !transformedData[id].ShortName) {
                 delete transformedData[id];
             }
+        }
+
+        if (!fs.existsSync(outputPath)) {
+            fs.mkdirSync(path.dirname(outputPath), { recursive: true });
         }
 
         if (Object.keys(transformedData).length > 0) {

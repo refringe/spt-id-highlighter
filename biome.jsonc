@@ -9,7 +9,7 @@
             ".git/*",
             "dist/*",
             "node_modules/*",
-            "assets/*",
+            "SPT_Data/*",
             "src/database/*.json"
         ]
     },
@@ -33,7 +33,7 @@
             "**/dist",
             "**/node_modules",
             "**/.editorconfig",
-            "**/assets",
+            "**/SPT_Data",
             "src/database/*.json"
         ],
         "attributePosition": "auto",
