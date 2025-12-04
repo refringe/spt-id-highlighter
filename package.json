@@ -5,7 +5,7 @@
     "icon": "images/icon.png",
     "author": "Refringe <me@refringe.com>",
     "publisher": "refringe",
-    "version": "1.2.0",
+    "version": "1.3.0",
     "repository": {
         "type": "git",
         "url": "https://github.com/refringe/spt-dev-vscode-extension.git"

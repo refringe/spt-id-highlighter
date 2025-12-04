@@ -26,6 +26,13 @@ No known issues at this time.
 
 ## Release Notes
 
+### v1.3.0
+
+Updates
+
+- Updated IDs for SPT v4.0.0
+- Added C# support
+
 ### v1.2.0
 
 Updates
