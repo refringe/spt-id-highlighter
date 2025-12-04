@@ -209,7 +209,7 @@ export function activate(context: vscode.ExtensionContext) {
                 updateDecorations();
             }
         }),
-        vscode.languages.registerHoverProvider(["typescript", "json"], {
+        vscode.languages.registerHoverProvider(["typescript", "json", "csharp"], {
             provideHover(document, position) {
                 const wordRange = document.getWordRangeAtPosition(position);
                 if (!wordRange) {
