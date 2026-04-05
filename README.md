@@ -1,3 +1,6 @@
+> [!CAUTION]
+> This project is no longer maintained. You should be using [SPT Mongo ID Highlighter](https://marketplace.visualstudio.com/items?itemName=Lacyway.SPTMongoIDHighlighter) for Visual Studio or [SPT ID Highlighter](https://plugins.jetbrains.com/plugin/28901-spt-id-highlighter) for Rider.
+
 # SPT ID Highlighter
 
 This extension aids in the development of the [Single Player Tarkov](https://github.com/sp-tarkov) project by providing additional information about items, quests, and other game objects all directly within Visual Studio Code.
